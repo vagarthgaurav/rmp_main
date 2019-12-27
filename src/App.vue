@@ -1,32 +1,66 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+    <v-app>
+
+        <Navbar/>
+
+        <v-content>
+            <transition name="router-anim">
+                <router-view/>
+            </transition>
+
+        </v-content>
+    </v-app>
 </template>
 
+<script>
+
+    import Navbar from '@/components/NavBar'
+
+    export default {
+        name: 'App',
+        components: {
+            Navbar
+        }
+    }
+</script>
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+    /*@import "https://cdn.jsdelivr.net/npm/animate.css@3.7.2";*/
 
-#nav {
-  padding: 30px;
-}
+    .page {
+        position: fixed;
+        width: inherit;
+    }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+    .router-anim-enter-active {
+        animation: coming 1s;
+        animation-delay: .5s;
+        opacity: 0;
+    }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+    .router-anim-leave-active {
+        animation: going 1s;
+    }
+
+    @keyframes going {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes coming {
+        from {
+            transform: translateX(-50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
 </style>

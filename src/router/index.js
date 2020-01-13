@@ -1,15 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../views/Home.vue'
-import Courses from '../views/Courses.vue'
-//import RegisterCourse from '../views/RegisterCourse.vue'
-import StageRecuperationPoints from '../views/stage-recuperation-points'
-import StageSensibilisationSecuriteRoutiere from '../views/stage-sensibilisation-securite-routiere'
-import StageVolontaireStageDeRecuperationDePoints from '../views/stage-volontaire-stage-de-recuperation-de-points'
-import StageDeRecuperationEePointsObligatoireEnPermisProbatoire
-    from '../views/stage-de-recuperation-de-points-obligatoire-en-permis-probatoire'
-import LesDifferentsStagesObligatoiresDeSensibilisationALaAecuriteRoutiere
-    from '../views/les-différents-stages-obligatoires-de-sensibilisation-a-la-securite-routiere'
+
+
 
 Vue.use(Router);
 
@@ -20,57 +12,47 @@ export default new Router({
         {
             path: '/',
             name: 'home',
-            component: Home
+            component: () => import('../views/Home.vue')
         },
         {
             path: '/courses/:param',
             name: 'courses',
-            component: Courses
+            component: () => import('../views/Courses.vue')
         },
-        // {
-        //     path: '/register',
-        //     name: 'register',
-        //     component: () => import('../views/RegisterStudent.vue')
-        // },
-        // {
-        //     path: '/training-center-register',
-        //     name: 'training-center-register',
-        //     component: () => import('../views/TrainingCenterRegister.vue')
-        // },
-        // {
-        //     path: '/transaction-status',
-        //     name: 'transactionstatus',
-        //     component: () => import('../views/TransactionStatus.vue')
-        // },
-        // {
-        //     path: '/registerCourse/:id',
-        //     name: 'registerCourse',
-        //     component: RegisterCourse
-        // },
+        {
+            path: '/success',
+            name: 'success',
+            component: () => import('../views/Success.vue')
+        },
+        {
+            path: '/registerCourse/:id',
+            name: 'registerCourse',
+            component: () => import('../views/RegisterCourse')
+        },
         {
             path: '/stage-recuperation-points',
             name: 'stage-recuperation-points',
-            component: StageRecuperationPoints
+            component: () => import('../views/stage-recuperation-points')
         },
         {
             path: '/stage-sensibilisation-securite-routiere',
             name: 'stage-sensibilisation-securite-routiere',
-            component: StageSensibilisationSecuriteRoutiere
+            component: () => import('../views/stage-sensibilisation-securite-routiere')
         },
         {
             path: '/stage-volontaire-stage-de-recuperation-de-points',
             name: 'stage-volontaire-stage-de-recuperation-de-points',
-            component: StageVolontaireStageDeRecuperationDePoints
+            component: () => import('../views/stage-volontaire-stage-de-recuperation-de-points')
         },
         {
             path: '/stage-de-recuperation-de-points-obligatoire-en-permis-probatoire',
             name: 'stage-de-recuperation-de-points-obligatoire-en-permis-probatoire',
-            component: StageDeRecuperationEePointsObligatoireEnPermisProbatoire
+            component: () => import('../views/stage-de-recuperation-de-points-obligatoire-en-permis-probatoire')
         },
         {
             path: '/les-différents-stages-obligatoires-de-sensibilisation-a-la-securite-routiere',
             name: 'les-différents-stages-obligatoires-de-sensibilisation-a-la-securite-routiere',
-            component: LesDifferentsStagesObligatoiresDeSensibilisationALaAecuriteRoutiere
+            component: () => import('../views/les-différents-stages-obligatoires-de-sensibilisation-a-la-securite-routiere')
         },
         {
             path: '/de-quelles-facons-recuperer-des-points',

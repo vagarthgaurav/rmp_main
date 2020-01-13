@@ -1,11 +1,11 @@
 <template>
     <v-app>
 
-        <Navbar/>
+        <Navbar style="z-index: 1000"/>
 
-        <v-content>
+        <v-content >
             <transition name="router-anim">
-                <router-view/>
+                <router-view />
             </transition>
 
         </v-content>

@@ -94,29 +94,38 @@
             <v-stepper-items style="max-height: 70vh; height: 70vh; overflow-y:auto">
               <!-- ---------------------------------- Login ---------------------------------------------------- -->
               <v-stepper-content step="1">
-                <v-card class="mx-auto mt-10 grey lighten-2" max-width="600" v-if="!isLoggedIn">
-                  <v-card-text>
-                    <v-form v-model="loginForm" ref="loginRef">
-                      <v-row class="pa-6">
-                        <v-col cols="12" sm="12">
-                          <v-text-field v-model="email" :rules="emailRules" label="E-mail"></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="12">
-                          <v-text-field
-                            v-model="password"
-                            :rules="passwordRules"
-                            label="Password"
-                            required
-                            type="password"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="12">
-                          <v-btn color="primary" @click="login()" :disabled="!loginForm">Login</v-btn>
-                        </v-col>
-                      </v-row>
-                    </v-form>
-                  </v-card-text>
-                </v-card>
+                <div v-if="!isLoggedIn">
+                  <v-card class="mx-auto mt-10 grey lighten-2" max-width="600">
+                    <v-card-text>
+                      <v-form v-model="loginForm" ref="loginRef">
+                        <v-row class="pa-6">
+                          <v-col cols="12" sm="12">
+                            <v-text-field v-model="email" :rules="emailRules" label="E-mail"></v-text-field>
+                          </v-col>
+                          <v-col cols="12" sm="12">
+                            <v-text-field
+                              v-model="password"
+                              :rules="passwordRules"
+                              label="Password"
+                              required
+                              type="password"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12" sm="12">
+                            <v-btn color="primary" @click="login()" :disabled="!loginForm">Login</v-btn>
+                          </v-col>
+                        </v-row>
+                      </v-form>
+                    </v-card-text>
+                  </v-card>
+
+                  <div class="text-center mt-6">
+                    <p class="font-weight-bold">OR</p>
+                    <v-card class="mx-auto mt-5 pa-3 grey lighten-2" max-width="600">
+                      <v-btn color="primary" @click="registerDialog = true">Register</v-btn>
+                    </v-card>
+                  </div>
+                </div>
 
                 <v-card v-else>
                   <v-card-text>
@@ -159,11 +168,11 @@
                   </v-radio-group>
 
                   <v-card-actions>
+                    <v-btn outlined color="primary" @click="stage = 1">Back</v-btn>
                     <v-btn
                       color="primary"
                       @click="caseDetails = parseInt(typeOfInternship);stage = 3;"
                     >Continue</v-btn>
-                    <v-btn outlined color="primary" @click="stage = 1">Back</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-stepper-content>
@@ -350,12 +359,12 @@
                 </v-card>
 
                 <v-card-actions>
+                  <v-btn outlined color="primary" @click="stage = 2">Back</v-btn>
                   <v-btn
                     color="primary"
                     @click="caseSelected"
                     :disabled="(parseInt(typeOfInternship) == 2)"
                   >Continue</v-btn>
-                  <v-btn outlined color="primary" @click="stage = 2">Back</v-btn>
                 </v-card-actions>
               </v-stepper-content>
               <!-- ---------------------------------- Driving License ------------------------------------------ -->
@@ -364,25 +373,25 @@
                   <v-card-text>
                     <v-row>
                       <v-col cols="12" sm="6">
-                        <h3 v-if="savedLicense" class="mb-6">You already have a saved license.</h3>
+                        <h3 v-if="licenseExists" class="mb-6">You already have a saved license.</h3>
                       </v-col>
                       <v-col cols="12" sm="6" class="text-right">
                         <v-btn
+                          v-if="!licenseExists"
                           color="primary"
                           @click="addLicenseDialog = true"
                           :ripple="false"
-                          v-if="!savedLicense"
                         >
-                          <v-icon left>mdi-smart-card-outline</v-icon>new Licence
+                          <v-icon left>mdi-smart-card-outline</v-icon>new License
                         </v-btn>
                       </v-col>
                     </v-row>
 
                     <v-item-group v-model="selectedLicense" mandatory>
-                      <v-container>
+                      <v-container v-if="licenseExists">
                         <v-row>
-                          <v-col v-for="(license,i) in savedLicense" :key="i" cols="12" md="4">
-                            <v-item v-slot:default="{ active, toggle }" :value="license">
+                          <v-col cols="12" md="6">
+                            <v-item v-slot:default="{ active, toggle }" :value="savedLicense">
                               <v-card
                                 :color="active ? 'primary' : ''"
                                 class="pa-4"
@@ -398,17 +407,21 @@
                                       <p>Delivery Place</p>
                                       <p>Delivery Date</p>
                                       <p>Oldest Date</p>
-                                      <p v-if="license.type == 'OLD'">Special Element 1</p>
-                                      <p v-if="license.type == 'OLD'">Special Element 2</p>
+                                      <p v-if="savedLicense.type == 'OLD'">Special Element 1</p>
+                                      <p v-if="savedLicense.type == 'OLD'">Special Element 2</p>
                                     </v-col>
                                     <v-col cols="12" sm="6">
-                                      <p>{{license.number}}</p>
-                                      <p>{{license.type}}</p>
-                                      <p>{{license.deliveryPlace}}</p>
-                                      <p>{{formatDate(license.deliveryOn)}}</p>
-                                      <p>{{formatDate(license.oldestDate)}}</p>
-                                      <p v-if="license.type == 'OLD'">{{license.specialElementOne}}</p>
-                                      <p v-if="license.type == 'OLD'">{{license.specialElementTwo}}</p>
+                                      <p>{{savedLicense.number}}</p>
+                                      <p>{{savedLicense.type}}</p>
+                                      <p>{{savedLicense.deliveryPlace}}</p>
+                                      <p>{{formatDate(savedLicense.deliveryOn)}}</p>
+                                      <p>{{formatDate(savedLicense.oldestDate)}}</p>
+                                      <p
+                                        v-if="savedLicense.type == 'OLD'"
+                                      >{{savedLicense.specialElementOne}}</p>
+                                      <p
+                                        v-if="savedLicense.type == 'OLD'"
+                                      >{{savedLicense.specialElementTwo}}</p>
                                     </v-col>
                                   </v-row>
                                 </v-scroll-y-transition>
@@ -421,22 +434,22 @@
                   </v-card-text>
 
                   <v-card-actions>
+                    <v-btn outlined color="primary" @click="stage = 3">Back</v-btn>
                     <v-btn
                       color="primary"
                       @click="drivingLicenseSelected"
                       :disabled="!(!!selectedLicense)"
                     >Continue</v-btn>
-                    <v-btn outlined color="primary" @click="stage = 3">Back</v-btn>
                   </v-card-actions>
                 </v-card>
 
-                <v-dialog v-model="addLicenseDialog" width="70%">
+                <v-dialog v-model="addLicenseDialog" width="fit-content">
                   <v-card>
                     <v-card-title class="headline primary white--text pa-2">Add new License</v-card-title>
 
                     <v-card-text>
                       <v-layout row wrap>
-                        <v-flex sm6 md6>
+                        <v-flex sm12 md12 lg6>
                           <div class="pa-2">
                             <span
                               style="display: inline-block;"
@@ -454,14 +467,14 @@
                           </div>
 
                           <img
-                            class="mt-4"
+                            class="mt-4 text-center"
                             v-if="!licenseFormat"
                             src="../assets/ancien-permis-l.jpg"
                             style="width: 600px"
                           />
 
                           <img
-                            class="mt-4"
+                            class="mt-4 text-center"
                             v-if="licenseFormat"
                             src="../assets/nouveau-permis-l.jpg"
                             style="width: 600px"
@@ -634,9 +647,8 @@
                         <div id="card-errors" role="alert"></div>
                       </v-card-text>
                       <v-card-actions>
-                        <v-btn color="primary" @click="submitPayment" :loading="paymentLoader">Pay</v-btn>
-
                         <v-btn outlined color="primary" @click="stage = 4">Back</v-btn>
+                        <v-btn color="primary" @click="submitPayment" :loading="paymentLoader">Pay</v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-col>
@@ -654,6 +666,13 @@
       </v-row>
     </v-container>
 
+    <v-dialog v-model="paymentsLoaderDialog" persistent width="fit-content">
+      <div class="text-center white pa-3" style="overflow: hidden">
+        <v-progress-circular class="ma-5" :size="70" :width="7" color="primary" indeterminate></v-progress-circular>
+        <p>Votre paiement est en cours de traitement. Ne fermez pas pendant le chargement ...</p>
+      </div>
+    </v-dialog>
+
     <v-container v-if=" courseExists == false" class="mt-12">
       <v-alert class="mx-auto" width="60%" type="error" border="bottom">Course Doesn't exist.</v-alert>
     </v-container>
@@ -666,12 +685,166 @@
         border="bottom"
       >You are already registered to the course.</v-alert>
     </v-container>
+
+    <v-dialog v-model="registerDialog">
+      <v-card>
+        <v-card-title class="headline primary white--text pa-2" primary-title>Register New Account</v-card-title>
+        <v-card-text class="my-4 pa-3">
+          <v-form v-model="formValid" class="ma-0" ref="form">
+            <v-layout row wrap class="justify-space-around">
+              <v-flex xs12 md5>
+                <v-text-field
+                  v-model="firstname"
+                  :rules="nameRules"
+                  :counter="20"
+                  label="First name"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 md5>
+                <v-text-field
+                  v-model="lastname"
+                  :rules="nameRules"
+                  :counter="20"
+                  label="Last name"
+                  required
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs12 md5>
+                <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+              </v-flex>
+
+              <v-flex xs12 md5>
+                <v-text-field
+                  v-model="phonenumber"
+                  :rules="phoneRules"
+                  label="Phone Number"
+                  required
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs12 md5>
+                <v-select
+                  :items="gender"
+                  item-text="item"
+                  item-value="value"
+                  label="Gender"
+                  :rules="[v => !!v || 'Gender is required']"
+                  v-model="genderSelect"
+                ></v-select>
+              </v-flex>
+
+              <v-flex xs12 md5>
+                <v-layout row wrap class="justify-space-between">
+                  <v-flex xs12 md4>
+                    <v-select
+                      :items="days"
+                      label="Date"
+                      :rules="[v => !!v || 'Date is required']"
+                      v-model="day"
+                      class="mx-2"
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 md4>
+                    <v-select
+                      :items="months"
+                      item-text="item"
+                      item-value="value"
+                      label="Month"
+                      :rules="[v => !!v || 'Month is required']"
+                      v-model="month"
+                      class="mx-2"
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 md4>
+                    <v-select
+                      :items="years"
+                      label="Year"
+                      :rules="[v => !!v || 'Year is required']"
+                      v-model="year"
+                      class="mx-2"
+                    ></v-select>
+                  </v-flex>
+                </v-layout>
+              </v-flex>
+
+              <v-flex xs12 md5>
+                <v-text-field
+                  type="password"
+                  :rules="passwordRules"
+                  v-model="registerPassword"
+                  label="Password"
+                  required
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs12 md5>
+                <v-text-field
+                  v-model="registerRepeatPassword"
+                  type="password"
+                  :rules="passwordRules"
+                  label="Repeat Password"
+                  required
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs12 md4 class="pa-2 px-12">
+                <v-text-field v-model="street" :rules="rules" label="Street" required class="mx-5"></v-text-field>
+              </v-flex>
+              <v-flex xs12 md4 class="pa-2 px-12">
+                <v-text-field
+                  v-model="pincode"
+                  :rules="pincodeRules"
+                  label="Pincode"
+                  required
+                  class="mx-5"
+                ></v-text-field>
+              </v-flex>
+
+              <v-flex xs12 md4 class="pa-2 px-12">
+                <!-- <v-text-field v-model="city" :rules="nameRules" label="City" required></v-text-field> -->
+                <v-select
+                  v-model="city"
+                  :items="cities"
+                  item-text="cityName"
+                  item-value="id"
+                  label="City"
+                  persistent-hint
+                  return-object
+                  single-line
+                  required
+                  :rules="rules"
+                  class="mx-5"
+                ></v-select>
+              </v-flex>
+            </v-layout>
+          </v-form>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            :disabled="!formValid"
+            color="green darken-3"
+            class="white--text px-5"
+            :loading="addStudentLoader"
+            @click="registerStudent"
+          >Submit</v-btn>
+
+          <v-btn color="red darken-3" dark @click="reset()" class="px-5">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import VueCookies from "vue-cookies";
 import { mask } from "vue-the-mask";
+//import Footer from "@/components/Footer";
 
 var stripe = Stripe("pk_test_xwPPg4R1nsYgYE1gfdCkNDv000C9CmM8qd"),
   elements = stripe.elements();
@@ -700,6 +873,9 @@ export default {
   directives: {
     mask
   },
+  components: {
+    //Footer
+  },
   data() {
     return {
       courseId: this.$route.params.id,
@@ -711,6 +887,29 @@ export default {
 
       paymentLoader: false,
 
+      registerDialog: false,
+      formValid: false,
+      addStudentLoader: false,
+      firstname: "",
+      lastname: "",
+      registerEmail: "",
+      phonenumber: "",
+      genderSelect: "",
+      typeOfTrainer: "",
+      day: "",
+      month: "",
+      year: "",
+      street: "",
+      pincode: "",
+      city: "",
+      registerPassword: "",
+      registerRepeatPassword: "",
+
+      cities: [],
+      gender: [
+        { item: "Male", value: "M" },
+        { item: "Female", value: "F" }
+      ],
       token: "",
 
       mask: "##:##",
@@ -738,6 +937,7 @@ export default {
       licenseCardBorder: "",
       selectedLicense: "",
       addLicenseLoader: false,
+
       days: [
         "01",
         "02",
@@ -847,28 +1047,44 @@ export default {
 
       nameRules: [
         v => !!v || "Name is required",
-        v => v.length <= 20 || "Name must be less than 10 characters"
+        v => (v && v.length <= 20) || "Name must be less than 10 characters"
       ],
       passwordRules: [
         v => !!v || "Password is required",
         v => (v && v.length >= 6) || "Password must be more than 6 characters."
-      ]
+      ],
+      pincodeRules: [
+        v => !!v || "Pincode is required",
+        v => !isNaN(v) || "Pincode must be valid",
+        v => (v && v.length === 5) || "Pincode must be 5 characters"
+      ],
+      rules: [v => !!v || "Field is required"],
+      phoneRules: [
+        v => !!v || "Phone Number is required",
+        v => !isNaN(v) || "Phone number must be valid",
+        v => (v && v.length === 10) || "Phone Number must be 10 characters"
+      ],
+
+      paymentsLoaderDialog: false
     };
   },
   updated() {
     this.isLoggedIn = this.$store.getters.isLoggedIn;
 
-    if (this.isLoggedIn == true) {
-      if (!this.alreadyRegistered) {
-        card.mount("#card-element");
-      }
-    }
+    card.mount("#card-element");
   },
   created() {
     this.isLoggedIn = this.$store.getters.isLoggedIn;
 
     if (this.isLoggedIn == true) {
-      this.savedLicense.push(this.$store.getters.getLicense[0]);
+      this.stage = 2;
+
+      // if (this.$store.getters.getLicense[0]) {
+      //   this.savedLicense.push(this.$store.getters.getLicense[0]);
+      // } else {
+      //   this.savedLicense = false;
+      // }
+
       this.token = this.$store.state.token;
 
       this.$http
@@ -887,7 +1103,31 @@ export default {
             this.alreadyRegistered = true;
           }
         });
+
+      this.$http
+        .get("/customer/" + this.user.id + "/driving-licence/findAll", {
+          headers: { Authorization: "Bearer " + this.token }
+        })
+        .then(res => {
+          if (res.data.length != 0) {
+            //this.$store.commit("saveLicense", res.data);
+            this.licenseExists = true;
+            this.savedLicense = res.data[0];
+          }
+        })
+        .catch(e => {
+          console.log(e.response);
+        });
     }
+
+    this.$http
+      .get("/public/findCities")
+      .then(res => {
+        this.cities = res.data;
+      })
+      .catch(e => {
+        console.log(e.response);
+      });
 
     this.$http
       .get("/public/internship/" + this.courseId + "/findById")
@@ -903,6 +1143,14 @@ export default {
   },
   methods: {
     clearForms() {},
+    reset() {
+      this.formValid = false;
+
+      this.addStudentLoader = false;
+
+      this.registerDialog = false;
+      this.$refs.form.reset();
+    },
     prettyFormatDate(date) {
       if (!date) return null;
 
@@ -970,30 +1218,20 @@ export default {
               }
             });
 
-          this.$http
-            .get("/customer/" + Uid + "/driving-licence/findAll", {
-              headers: { Authorization: "Bearer " + token }
-            })
-            .then(res => {
-              if (res.data.length > 0) {
-                this.$store.commit("saveLicense", res.data);
-
-                this.savedLicense.push(this.$store.getters.getLicense[0]);
-              }
-              this.stage = 2;
-            })
-            .catch(e => {
-              console.log(e.response);
-            });
+          location.reload();
         })
         .catch(e => {
           console.log(e.response);
           if (e.response.status == 404) {
-            this.snackbar = true;
-            this.snackbarContent = "Email is not registered.";
+            // this.snackbar = true;
+            // this.snackbarContent = "Email is not registered.";
+
+            this.registerDialog = true;
           } else if (e.response.status == 401) {
             this.snackbar = true;
-            this.snackbarContent = "Email/Password combination is incorrect.";
+            this.snackbarColor = "error";
+            this.snackbarContent =
+              "Email/Password combination is incorrect.  Please confirm your email if you have not already done so.";
           }
         });
     },
@@ -1055,32 +1293,14 @@ export default {
           headers: { Authorization: "Bearer " + this.token }
         })
         .then(res => {
-          if (res.status) {
-            this.snackbar = true;
-            this.snackbarColor = "success";
-            this.snackbarContent = "License saved.";
-            this.$http
-              .get("/customer/" + Uid + "/driving-licence/findAll", {
-                headers: { Authorization: "Bearer " + token }
-              })
-              .then(res => {
-                console.log(res.data);
-                if (res.data.length > 0) {
-                  this.$store.commit("saveLicense", res.data);
+          console.log(res);
 
-                  this.savedLicense = this.$store.getters.getLicense;
-                }
-              })
-              .catch(e => {
-                console.log(e.response);
-              });
-            this.addLicenseDialog = false;
-          }
+          this.savedLicense = res.data;
+          this.licenseExists = true;
+          this.addLicenseDialog = false;
         })
         .catch(e => {
           console.log(e.response);
-          this.snackbar = true;
-          this.snackbarContent = "Fatal error. Contact admin.";
         });
     },
     closeLicenseDialog() {
@@ -1091,6 +1311,7 @@ export default {
     },
     submitPayment() {
       this.paymentLoader = true;
+      this.paymentsLoaderDialog = true;
       let Uid = this.$store.getters.getUser.id;
 
       let price_in_cents = this.courseDetails.price;
@@ -1113,12 +1334,12 @@ export default {
       };
 
       let this_vue = this;
+
       this.$http
         .post("/customer/" + Uid + "/create-payment-intent", data, {
           headers: { Authorization: "Bearer " + this.token }
         })
         .then(res => {
-          this.paymentLoader = false;
           stripe
             .confirmCardPayment(res.data.client_secret, {
               payment_method: {
@@ -1127,10 +1348,14 @@ export default {
               receipt_email: user_email
             })
             .then(function(result) {
-              console.log(result);
               if (result.error) {
                 // Show error to your customer (e.g., insufficient funds)
                 this.paymentLoader = false;
+                this.paymentsLoaderDialog = false;
+                this.snackbarContent = "An Error Occured. Contact admin";
+                this.snackbarColor = "error";
+                this.snackbar = true;
+
                 console.log(result);
               } else {
                 // The payment has been processed!
@@ -1145,20 +1370,23 @@ export default {
         });
     },
     saveStripeRegistraion(PI) {
-      let today = new Date();
+      //console.log(PI.paymentIntent);
+
+      let d = new Date();
       var date =
-        today.getFullYear() +
+        d.getFullYear() +
         "-" +
-        (today.getMonth() + 1) +
+        ("0" + (d.getMonth() + 1)).slice(-2) +
         "-" +
-        today.getDate();
+        ("0" + d.getDate()).slice(-2);
+
       let Uid = this.$store.getters.getUser.id;
       let transaction = {
         status: "success",
-        number: PI.id,
-        amount: PI.amount / 100,
+        number: PI.paymentIntent.id,
+        amount: PI.paymentIntent.amount / 100,
         currency: "EUR",
-        transactionDate: "",
+        transactionDate: date,
         paymentInterface: "stripe"
       };
 
@@ -1167,15 +1395,6 @@ export default {
         transactions: [transaction],
         declaration: this.declaration
       };
-      let d = new Date(date);
-      console.log(
-        date,
-        d.getFullYear() +
-          "-" +
-          ("0" + (d.getMonth() + 1)).slice(-2) +
-          "-" +
-          ("0" + d.getDate()).slice(-2)
-      );
 
       this.$http
         .post(
@@ -1187,6 +1406,7 @@ export default {
         )
         .then(res => {
           this.$router.push("/success");
+          this.paymentLoader = false;
         })
         .catch(e => {
           this.paymentLoader = false;
@@ -1197,6 +1417,63 @@ export default {
       if (!value) return "";
       value = value.toString();
       return value.charAt(0).toUpperCase() + value.slice(1);
+    },
+
+    registerStudent() {
+      if (this.registerPassword == this.registerRepeatPassword) {
+        this.addStudentLoader = true;
+        var data = {
+          firstname: this.firstname,
+          lastname: this.lastname,
+          gender: this.genderSelect,
+          password: this.registerPassword,
+          address: {
+            address: this.street,
+            pinCode: this.pincode,
+            city: {
+              id: this.city.id
+            }
+          },
+          dateOfBirth: this.year + "-" + this.month + "-" + this.day,
+          phoneNumber: this.phonenumber,
+          email: this.email
+        };
+
+        console.log(data);
+
+        this.$http
+          .post("/customer/register", data)
+          .then(res => {
+            console.log(res);
+            this.snackbarContent =
+              "New student added. Please confirm your email by checking your inbox.";
+            this.snackbarColor = "success";
+            this.snackbar = true;
+
+            this.addStudentLoader = false;
+            this.registerDialog = false;
+            this.reset();
+          })
+          .catch(e => {
+            console.log(e.response);
+
+            if (e.response.status == 409) {
+              this.addStudentLoader = false;
+              this.snackbarContent = e.response.data.message;
+              this.snackbarColor = "error";
+              this.snackbar = true;
+            } else {
+              this.addStudentLoader = false;
+              this.snackbarContent = "Fatal error. Could not create account.";
+              this.snackbarColor = "error";
+              this.snackbar = true;
+            }
+          });
+      } else {
+        this.snackbarContent = "Passwords dont match";
+        this.snackbarColor = "error";
+        this.snackbar = true;
+      }
     }
   },
   computed: {
@@ -1221,6 +1498,9 @@ export default {
       }
 
       return temp;
+    },
+    user() {
+      return this.$store.getters.getUser;
     }
   }
 };

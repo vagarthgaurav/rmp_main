@@ -18,6 +18,28 @@
           <span>Lundi au Vendredi - 9h/18h - 0,25€/min</span>
         </div>
       </v-flex>
+
+      <v-flex class="xs12 md6 pa-4 text-right">
+        <v-layout row wrap>
+          
+          <v-flex class="xs12 pa-2 text-center my-3">
+            <h4>Training Center</h4>
+            <v-btn class="mx-2" dark text to="/registerTrainingCenter">Register</v-btn>
+             <v-btn
+             class="mx-2"
+              dark
+              text
+              @click="trainingCenterLogin"
+            >Login</v-btn>
+          </v-flex>
+          <v-flex class="xs12 pa-2 text-center my-3">
+            <h4>Trainer</h4>
+            <v-btn class="mx-2" dark text to="/registerTrainer">Register</v-btn>
+            <v-btn class="mx-2" dark text @click="trainerLogin">Login</v-btn>
+           
+          </v-flex>
+        </v-layout>
+      </v-flex>
     </v-layout>
   </v-footer>
 </template>
@@ -35,6 +57,14 @@ export default {
         "Stages obligatoires - autres"
       ]
     };
+  },
+  methods: {
+    trainerLogin() {
+      window.open("https://trainer.gardez-votre-permis.fr/", "_blank");
+    },
+    trainingCenterLogin() {
+      window.open("https://training-center.gardez-votre-permis.fr/", "_blank");
+    }
   }
 };
 </script>

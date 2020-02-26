@@ -41,7 +41,7 @@
               <v-text-field
                 class="mr-5"
                 style="width: 500px; display: inline-block"
-                label="Search by area code"
+                label="Rechercher par code postal"
                 required
                 v-model="searchBox"
               ></v-text-field>
@@ -213,7 +213,7 @@ export default {
         {
           title: "Stage garanti",
           content:
-            "Un empêchement ? Vous bénéficiez d'un transfert dans plus de 26 000 stages de notre réseau de centres agréés.",
+            "Un empêchement ? Vous bénéficiez d'un transfert dans plus de 26 000 organismes de notre réseau de centres agréés.",
           iconSrc: "/stage-garanti.png"
         },
         {

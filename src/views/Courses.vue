@@ -1,133 +1,152 @@
 <template>
-  <div class="courses my-5 mx-3 px-3">
-    <h1>
-      All courses in
-      <span class="font-italic" style="text-decoration: underline"></span>
-    </h1>
+  <div>
+    <div class="courses my-5 mx-3 px-3">
+      <h1>
+        Tous les stage en
+        <span class="font-italic" style="text-decoration: underline"></span>
+      </h1>
 
-    <v-layout row wrap>
-      <v-flex class="px-2 mb-3" md3 xs12>
-        <v-card class="pa-6">
-          <v-card-text>
-            <div>
-              <span class="title font-weight-black">
-                <v-icon left medium>mdi-filter</v-icon>Filtrez vos résultats
-              </span>
-            </div>
+      <v-layout row wrap>
+        <v-flex class="px-2 mb-3" md3 xs12>
+          <v-card class="pa-6">
+            <v-card-text>
+              <div>
+                <span class="title font-weight-black">
+                  <v-icon left medium>mdi-filter</v-icon>Filtrez vos résultats
+                </span>
+              </div>
 
-            <v-form class="ma-0" ref="form">
-              <v-layout row wrap>
-                <v-flex class="my-3" xs12>
-                  <h4 class="grey--text text--darken-2">PAR VILLES</h4>
-                  <v-radio-group style="text-transform: capitalize;" v-model="city">
-                    <v-radio color="primary" key="all" label="toutes les villes" value="a"></v-radio>
-                    <v-radio
-                      color="primary"
-                      v-for="(c, i) in cities"
-                      :label="c"
-                      :value="c"
-                      :key="i"
-                    ></v-radio>
-                  </v-radio-group>
-                  <v-divider light></v-divider>
-                </v-flex>
-
-                <v-flex xs12>
-                  <h4 class="grey--text text--darken-2">PAR JOUR</h4>
-                  <v-radio-group color="primary" style="text-transform: capitalize;" v-model="day">
-                    <v-radio color="primary" key="10" value="10" label="tous les jours"></v-radio>
-
-                    <v-radio color="primary" key="1" value="1" label="lundi"></v-radio>
-                    <v-radio color="primary" key="2" value="2" label="mardi"></v-radio>
-                    <v-radio color="primary" key="3" value="3" label="mercredi"></v-radio>
-                    <v-radio color="primary" key="4" value="4" label="jeudi"></v-radio>
-                    <v-radio color="primary" key="5" value="5" label="vendredi"></v-radio>
-                    <v-radio color="primary" key="6" value="6" label="samedi"></v-radio>
-                    <v-radio color="primary" key="0" value="0" label="dimanche"></v-radio>
-                  </v-radio-group>
-                </v-flex>
-
-                <v-flex class="text-xs-center" xs12>
-                  <v-btn @click="filterCourses" color="primary" class="mx-2">Filter</v-btn>
-
-                  <v-btn @click="resetCourses" color="primary" outlined class="mx-2">Reset</v-btn>
-                </v-flex>
-              </v-layout>
-            </v-form>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-
-      <v-flex xs12 sm12 md9 class="px-2">
-        <v-alert
-          :value="true"
-          class="mb-2"
-          color="info"
-          icon="mdi-alert-octagon-outline"
-          v-if="noClassesAlert"
-        >
-          <span class="font-weight-black subheading">{{noClassesText}}</span>
-        </v-alert>
-
-        <v-container class="text-center" v-if="loader">
-          <v-progress-circular :size="70" color="primary" indeterminate></v-progress-circular>
-        </v-container>
-
-        <v-card style="border-radius: 5px;" v-if="!loader && !noClassesAlert">
-          <v-card-text class="pb-0">
-            <v-layout rwo wrap v-for="(course,i) in filteredCourses" class="pt-5" :key="i">
-              <v-flex xs6 md2>
-                <div class="title font-weight-medium mb-2">€ {{course.price}}</div>
-              </v-flex>
-
-              <v-flex xs12 md3>
-                <div
-                  class="subheading font-weight-black mb-2"
-                  style="text-transform: capitalize;"
-                >{{course.city}}</div>
-                <div
-                  class="mb-1 body-1 font-weight-medium"
-                >{{course.trainingCenterLocation.city.cityName}}</div>
-                <div class="mb-3">{{course.trainingCenterLocation.pinCode}}</div>
-              </v-flex>
-
-              <v-flex xs6 md4 class="mb-3">
+              <v-form class="ma-0" ref="form">
                 <v-layout row wrap>
-                  <v-flex xs12 class="mb-2">
-                    <span
-                      class="subheading font-italic mb-2"
-                    >{{formatDate(course.startingDate)}} et {{formatDate(course.endingDate)}}</span>
+                  <v-flex class="my-3" xs12>
+                    <h4 class="grey--text text--darken-2">PAR VILLES</h4>
+                    <v-radio-group style="text-transform: capitalize;" v-model="city">
+                      <v-radio color="primary" key="all" label="toutes les villes" value="a"></v-radio>
+                      <v-radio
+                        color="primary"
+                        v-for="(c, i) in cities"
+                        :label="c"
+                        :value="c"
+                        :key="i"
+                      ></v-radio>
+                    </v-radio-group>
+                    <v-divider light></v-divider>
                   </v-flex>
+
                   <v-flex xs12>
-                    <v-chip v-if="!course.full" small color="green" dark class="px-3 ma-0">Available</v-chip>
-                    <v-chip v-else color="red" small dark class="px-3">Full</v-chip>
+                    <h4 class="grey--text text--darken-2">PAR JOUR</h4>
+                    <v-radio-group
+                      color="primary"
+                      style="text-transform: capitalize;"
+                      v-model="day"
+                    >
+                      <v-radio color="primary" key="10" value="10" label="tous les jours"></v-radio>
+
+                      <v-radio color="primary" key="1" value="1" label="lundi"></v-radio>
+                      <v-radio color="primary" key="2" value="2" label="mardi"></v-radio>
+                      <v-radio color="primary" key="3" value="3" label="mercredi"></v-radio>
+                      <v-radio color="primary" key="4" value="4" label="jeudi"></v-radio>
+                      <v-radio color="primary" key="5" value="5" label="vendredi"></v-radio>
+                      <v-radio color="primary" key="6" value="6" label="samedi"></v-radio>
+                      <v-radio color="primary" key="0" value="0" label="dimanche"></v-radio>
+                    </v-radio-group>
+                  </v-flex>
+
+                  <v-flex class="text-xs-center" xs12>
+                    <v-btn @click="filterCourses" color="primary" class="mx-2">Filter</v-btn>
+
+                    <v-btn @click="resetCourses" color="primary" outlined class="mx-2">Reset</v-btn>
                   </v-flex>
                 </v-layout>
-              </v-flex>
+              </v-form>
+            </v-card-text>
+          </v-card>
+        </v-flex>
 
-              <v-flex xs12 md2 class="text-xs-right">
-                <v-btn
-                  color="blue"
-                  dark
-                  class="font-weight-black px-5 ma-0"
-                  @click="registerCourse(course.id)"
-                >
-                  <span style="font-weight: normal">Register</span>
-                </v-btn>
-              </v-flex>
+        <v-flex xs12 sm12 md9 class="px-2">
+          <v-alert
+            :value="true"
+            class="mb-2"
+            color="info"
+            icon="mdi-alert-octagon-outline"
+            v-if="noClassesAlert"
+          >
+            <span class="font-weight-black subheading">{{noClassesText}}</span>
+          </v-alert>
 
-              <span style="width: 100%; margin: auto; border: 1px solid #ddd" class="mt-3"></span>
-            </v-layout>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-    </v-layout>
+          <v-container class="text-center" v-if="loader">
+            <v-progress-circular :size="70" color="primary" indeterminate></v-progress-circular>
+          </v-container>
+
+          <v-card style="border-radius: 5px;" v-if="!loader && !noClassesAlert">
+            <v-card-text class="pb-0">
+              <v-layout rwo wrap v-for="(course,i) in filteredCourses" class="pt-5" :key="i">
+                <v-flex xs6 md2>
+                  <div class="title font-weight-medium mb-2">€ {{course.price}}</div>
+                </v-flex>
+
+                <v-flex xs12 md3>
+                  <div
+                    class="subheading font-weight-black mb-2"
+                    style="text-transform: capitalize;"
+                  >{{course.city}}</div>
+                  <div
+                    class="mb-1 body-1 font-weight-medium"
+                    style="text-transform: capitalize"
+                  >{{course.trainingCenterLocation.city.cityName}}</div>
+                  <div class="mb-3">{{course.trainingCenterLocation.city.pinCode}}</div>
+                </v-flex>
+
+                <v-flex xs6 md4 class="mb-3">
+                  <v-layout row wrap>
+                    <v-flex xs12 class="mb-2">
+                      <span
+                        class="subheading font-italic mb-2"
+                      >{{formatDate(course.startingDate)}} et {{formatDate(course.endingDate)}}</span>
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-chip
+                        v-if="!course.full"
+                        small
+                        color="green"
+                        dark
+                        class="px-3 ma-0"
+                      >Available</v-chip>
+                      <v-chip v-else color="red" small dark class="px-3">Full</v-chip>
+                    </v-flex>
+                  </v-layout>
+                </v-flex>
+
+                <v-flex xs12 md2 class="text-xs-right">
+                  <v-btn
+                    color="blue"
+                    dark
+                    class="font-weight-black px-5 ma-0"
+                    @click="registerCourse(course.id)"
+                  >
+                    <span style="font-weight: normal">Register</span>
+                  </v-btn>
+                </v-flex>
+
+                <span style="width: 100%; margin: auto; border: 1px solid #ddd" class="mt-3"></span>
+              </v-layout>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </div>
+    <Footer style="margin-top: 200px" />
   </div>
 </template>
 
 <script>
+import Footer from "@/components/Footer";
+
 export default {
   name: "Courses",
+  components: {
+    Footer
+  },
   data() {
     return {
       loader: false,
@@ -192,7 +211,6 @@ export default {
     };
   },
   created() {
-    console.log(this.param);
     this.loader = true;
     this.$http.get("/public/internship/search?data=" + this.param).then(
       res => {

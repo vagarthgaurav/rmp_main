@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-app-bar flat style="background: #f6f6f6" height="85px" class="my-2 ">
+    <v-app-bar flat style="background: #f6f6f6" height="85px">
       <v-toolbar-title>
         <router-link to="/">
           <img src="@/assets/logo.png" height="75px" />
@@ -78,8 +78,13 @@
         </div>
       </div>
       <v-spacer></v-spacer>
-      <v-btn text @click="login" v-if="!isLoggedIn" color="primary">Dashboard</v-btn>
-      <v-btn text @click="logout" v-if="isLoggedIn">Logout</v-btn>
+      <v-btn color="primary" class="mx-2" to="/register" v-if="!isLoggedIn">Register</v-btn>
+
+      <v-btn color="primary" class="mx-2" outlined @click="login" v-if="!isLoggedIn">Login</v-btn>
+
+      <v-btn class="mr-3" color="primary " @click="toDashboard" v-if="isLoggedIn">Dashboard</v-btn>
+      <v-btn outlined color="red" @click="logout" v-if="isLoggedIn">Logout</v-btn>
+
       <!-- <router-link to="/register" class="blue-grey--text px-3">Customer Register</router-link>
       <router-link
         to="/training-center-register"
@@ -260,6 +265,18 @@ export default {
     logout() {
       this.$store.commit("signout");
       window.location.href = "/";
+    },
+    registerStudent() {
+      this.$router.replace("/register");
+    },
+    registerTrainer() {
+      this.$router.replace("/registerTrainer");
+    },
+    registerTrainingCenter() {
+      this.$router.replace("/registerTrainingCenter");
+    },
+    toDashboard() {
+      window.open("https://student.gardez-votre-permis.fr/", "_blank");
     }
   },
   computed: {

@@ -30,6 +30,26 @@ export default new Router({
             component: () => import('../views/RegisterCourse')
         },
         {
+            path: '/registerTrainer/',
+            name: 'registerTrainer',
+            component: () => import('../views/RegisterTrainer')
+        },
+        {
+            path: '/registerTrainingCenter/',
+            name: 'registerTrainingcenter',
+            component: () => import('../views/RegisterTrainingCenter')
+        },
+        {
+            path: '/register/',
+            name: 'register',
+            component: () => import('../views/RegisterStudent')
+        },
+        {
+            path: '/reset-password/',
+            name: 'resetpassword',
+            component: () => import('../views/ResetPassword.vue')
+        },
+        {
             path: '/stage-recuperation-points',
             name: 'stage-recuperation-points',
             component: () => import('../views/stage-recuperation-points')

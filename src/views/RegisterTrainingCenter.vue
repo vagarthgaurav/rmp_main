@@ -6,7 +6,7 @@
     </v-snackbar>
 
     <v-container>
-      <v-card class="mt-10 mb-12">
+      <v-card class="mt-10 mb-12" style="width: 70%; margin: auto">
         <v-card-title
           class="headline primary white--text pa-2"
           primary-title
@@ -76,7 +76,7 @@
               </v-flex>
 
               <v-flex xs12 class="px-3">
-                <h2 class="my-6">Main Location</h2>
+                <h2 class="my-6">Siege Social</h2>
               </v-flex>
               <v-flex xs12 md6 class="px-3">
                 <v-text-field v-model="locationName" :rules="rules" label="Name" required></v-text-field>

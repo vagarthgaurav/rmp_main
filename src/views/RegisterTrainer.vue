@@ -6,7 +6,7 @@
     </v-snackbar>
 
     <v-container>
-      <v-card class="mt-10 mb-12">
+      <v-card class="mt-10 mb-12" style="width: 70%; margin: auto">
         <v-card-title class="headline primary white--text pa-2" primary-title>Register Trainer</v-card-title>
         <v-card-text class="my-4 pa-12">
           <v-form v-model="formValid" class="ma-0" ref="form">
@@ -140,13 +140,41 @@
                 ></v-select>
               </v-flex>
 
-              <v-flex xs12 md12 class="px-3">
+              <v-flex xs12 md6 class="px-3">
                 <v-text-field
                   v-model="certificateNumber"
                   :rules="[v => !!v || 'Certificate Number is required']"
                   label="Certificate number"
                   required
                 ></v-text-field>
+              </v-flex>
+
+              <v-flex xs12 md6 class="px-3">
+                <v-menu
+                  ref="smenu"
+                  v-model="smenu"
+                  :close-on-content-click="false"
+                  :nudge-right="40"
+                  :return-value.sync="validityDate"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="290px"
+                  :rules="[v => !!v || 'Select a validity date']"
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-text-field
+                      v-model="validityDateFormatted"
+                      label="Validity Date"
+                      readonly
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker v-model="validityDate" no-title scrollable>
+                    <v-spacer></v-spacer>
+                    <v-btn outlined color="primary" @click="smenu = false">Cancel</v-btn>
+                    <v-btn color="primary" @click="validityDateChosen">OK</v-btn>
+                  </v-date-picker>
+                </v-menu>
               </v-flex>
             </v-layout>
           </v-form>
@@ -289,7 +317,10 @@ export default {
       trainerType: [
         { item: "Psychologue", value: 2 },
         { item: "BAFM", value: 1 }
-      ]
+      ],
+      smenu: false,
+      validityDate: "",
+      validityDateFormatted: ""
     };
   },
   created() {
@@ -303,6 +334,14 @@ export default {
       });
   },
   methods: {
+    formatDate(date) {
+      if (!date) return null;
+
+      //const [year, month, day] = date.split("-");
+      let d = new Date(date);
+
+      return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+    },
     reset() {
       this.formValid = false;
 
@@ -328,7 +367,8 @@ export default {
           dateOfBirth: this.year + "-" + this.month + "-" + this.day,
           phoneNumber: this.phonenumber,
           email: this.email,
-          certificateNumber: this.certificateNumber
+          certificateNumber: this.certificateNumber,
+          certificateNumberValidityDate: this.validityDate + "T" + "00:00:00"
         };
 
         //console.log(data);
@@ -362,6 +402,10 @@ export default {
         this.snackbarColor = "error";
         this.snackbar = true;
       }
+    },
+    validityDateChosen() {
+      this.$refs.smenu.save(this.validityDate);
+      this.validityDateFormatted = this.formatDate(this.validityDate);
     }
   },
   computed: {

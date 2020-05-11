@@ -305,7 +305,7 @@ export default {
     this.$http
       .get("/public/region/findAll")
       .then(res => {
-        console.log(res.data);
+        //console.log(res.data);
         this.regions = res.data;
       })
       .catch(e => {

@@ -84,11 +84,11 @@
 
               <v-divider></v-divider>
 
-              <v-stepper-step :complete="stage > 4" step="4" :editable="isLoggedIn">Driving License</v-stepper-step>
+              <!-- <v-stepper-step :complete="stage > 4" step="4" :editable="isLoggedIn">Driving License</v-stepper-step> -->
 
               <v-divider></v-divider>
 
-              <v-stepper-step :complete="stage > 5" step="5" :editable="isLoggedIn">Paiment</v-stepper-step>
+              <v-stepper-step :complete="stage > 4" step="4" :editable="isLoggedIn">Paiment</v-stepper-step>
             </v-stepper-header>
 
             <v-stepper-items style="max-height: 70vh; height: 70vh; overflow-y:auto">
@@ -199,14 +199,14 @@
                                 <v-flex xs2>
                                   <span class="subheading">Je déclare qu'il me reste</span>
                                 </v-flex>
-                                <v-flex xs1>
+                                <v-flex xs2>
                                   <v-select
                                     class="ml-0 mr-4 mt-0 pa-0"
                                     v-model="remainingPoints"
                                     :items="points"
                                   ></v-select>
                                 </v-flex>
-                                <v-flex xs9>
+                                <v-flex xs8>
                                   <span
                                     class="subheading"
                                   >points sur le Fichier National du Permis de Conduire.</span>
@@ -368,7 +368,7 @@
                 </v-card-actions>
               </v-stepper-content>
               <!-- ---------------------------------- Driving License ------------------------------------------ -->
-              <v-stepper-content step="4">
+              <!-- <v-stepper-content step="4">
                 <v-card class="mb-12 elevation-0">
                   <v-card-text>
                     <v-row>
@@ -485,7 +485,6 @@
                           <v-form v-model="licenseFormValid">
                             <v-container>
                               <v-layout row wrap>
-                                <!--Place Of Issue-->
                                 <v-flex class="px-3" xs12>
                                   <h3>
                                     <span
@@ -502,8 +501,6 @@
                                     v-model="placeOfIssue"
                                   ></v-text-field>
                                 </v-flex>
-
-                                <!--Date of Issue-->
                                 <v-flex xs12>
                                   <h3>
                                     <span
@@ -542,7 +539,6 @@
                                   </v-layout>
                                 </v-flex>
 
-                                <!--License Number-->
                                 <v-flex md12 xs12>
                                   <h3>
                                     <span
@@ -558,7 +554,6 @@
                                   ></v-text-field>
                                 </v-flex>
 
-                                <!--Earliest Date-->
                                 <v-flex xs12>
                                   <h3>
                                     <span
@@ -632,9 +627,9 @@
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
-              </v-stepper-content>
+              </v-stepper-content> -->
               <!-- ---------------------------------- Payment -------------------------------------------------- -->
-              <v-stepper-content step="5">
+              <v-stepper-content step="4">
                 <v-row>
                   <v-col cols="12">
                     <v-card class="mb-12 mt-6 card_form elevation-3 pa-5" color height="200px">

@@ -1,5 +1,5 @@
 <template>
-  <v-footer class="pa-5" style="min-height: 250px; color: #fff" color="primary">
+  <v-footer class="pa-5 mt-12" style="min-height: 250px; color: #fff" color="primary">
     <v-layout row wrap>
       <v-flex class="xs12 md6 pa-4">
         <p

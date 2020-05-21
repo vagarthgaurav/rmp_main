@@ -85,138 +85,171 @@ const routes = [
 	{
 		path: '/de-quelles-facons-recuperer-des-points',
 		name: 'de-quelles-facons-recuperer-des-points',
-		component: () => import('../views/de-quelles-facons-recuperer-des-points.vue')
+		component: () => import('../views/de-quelles-facons-recuperer-des-points.vue'),
+		meta: { title: 'Recup Mes Points - De quelles façons récupérer des points' }
 	},
 	{
 		path: '/le-programme-du-stage-de-recuperation-de-points',
 		name: 'le-programme-du-stage-de-recuperation-de-points',
-		component: () => import('../views/le-programme-du-stage-de-recuperation-de-points.vue')
+		component: () => import('../views/le-programme-du-stage-de-recuperation-de-points.vue'),
+		meta: { title: 'Recup Mes Points - Le programme du stage de récupération de points' }
 	},
 	{
 		path: '/comment-trouver-un-stage',
 		name: 'comment-trouver-un-stage',
-		component: () => import('../views/comment-trouver-un-stage.vue')
+		component: () => import('../views/comment-trouver-un-stage.vue'),
+		meta: { title: 'Recup Mes Points - Comment trouver un stage' }
 	},
 	{
 		path: '/la-garantie-de-stage',
 		name: 'la-garantie-de-stage',
-		component: () => import('../views/la-garantie-de-stage.vue')
+		component: () => import('../views/la-garantie-de-stage.vue'),
+		meta: { title: 'Recup Mes Points - La garantie de stage' }
 	},
 	{
 		path: '/le-bareme-des-infractions',
 		name: 'le-bareme-des-infractions',
-		component: () => import('../views/le-bareme-des-infractions.vue')
+		component: () => import('../views/le-bareme-des-infractions.vue'),
+		meta: { title: 'Recup Mes Points - Le barème des infractions' }
 	},
 	{
 		path: '/les-sanctions-pour-alcool-au-volant',
 		name: 'les-sanctions-pour-alcool-au-volant',
-		component: () => import('../views/les-sanctions-pour-alcool-au-volant.vue')
+		component: () => import('../views/les-sanctions-pour-alcool-au-volant.vue'),
+		meta: { title: 'Recup Mes Points - Les sanctions pour alcool au volant' }
 	},
 	{
 		path: '/les-amendes-et-retraits-de-point-pour-les-exces-de-vitesse',
 		name: 'les-amendes-et-retraits-de-point-pour-les-exces-de-vitesse',
-		component: () => import('../views/les-amendes-et-retraits-de-point-pour-les-exces-de-vitesse.vue')
+		component: () => import('../views/les-amendes-et-retraits-de-point-pour-les-exces-de-vitesse.vue'),
+		meta: { title: 'Recup Mes Points - Les amendes et retraits de point pour les excès de vitesse' }
 	},
 	{
 		path: '/les-infractions-a-la-circulation',
 		name: 'les-infractions-a-la-circulation',
-		component: () => import('../views/les-infractions-a-la-circulation.vue')
+		component: () => import('../views/les-infractions-a-la-circulation.vue'),
+		meta: { title: 'Recup Mes Points - Les infractions à la circulation' }
 	},
 	{
 		path: '/les-amendes-relatives-au-stationnement',
 		name: 'les-amendes-relatives-au-stationnement',
-		component: () => import('../views/les-amendes-relatives-au-stationnement.vue')
+		component: () => import('../views/les-amendes-relatives-au-stationnement.vue'),
+		meta: { title: 'Recup Mes Points - Les amendes relatives au stationnement' }
 	},
 	{
 		path: '/les-infractions-sur-l-autoroute',
 		name: 'les-infractions-sur-l-autoroute',
-		component: () => import('../views/les-infractions-sur-l-autoroute.vue')
+		component: () => import('../views/les-infractions-sur-l-autoroute.vue'),
+		meta: { title: 'Recup Mes Points - Les infractions sur l’autoroute' }
 	},
 	{
 		path: '/permis-de-conduire-et-autres-documents-relatifs-au-vehicule',
 		name: 'permis-de-conduire-et-autres-documents-relatifs-au-vehicule',
-		component: () => import('../views/permis-de-conduire-et-autres-documents-relatifs-au-vehicule.vue')
+		component: () => import('../views/permis-de-conduire-et-autres-documents-relatifs-au-vehicule.vue'),
+		meta: { title: 'Recup Mes Points - Permis de conduire et autres documents relatifs au véhicule' }
 	},
 	{
 		path: '/la-signalisation-du-vehicule',
 		name: 'la-signalisation-du-vehicule',
-		component: () => import('../views/la-signalisation-du-vehicule.vue')
+		component: () => import('../views/la-signalisation-du-vehicule.vue'),
+		meta: { title: 'Recup Mes Points - La signalisation du véhicule' }
+	},
+	{
+		path: '/l-equipement-du-vehicule',
+		name: 'l-equipement-du-vehicule',
+		component: () => import('../views/l-equipement-du-vehicule.vue'),
+		meta: { title: 'Recup Mes Points - L’équipement du véhicule' }
 	},
 	{
 		path: '/le-retrait-de-points-du-permis-de-conduire',
 		name: 'le-retrait-de-points-du-permis-de-conduire',
-		component: () => import('../views/le-retrait-de-points-du-permis-de-conduire.vue')
+		component: () => import('../views/le-retrait-de-points-du-permis-de-conduire.vue'),
+		meta: { title: 'Recup Mes Points - Le retrait de points du permis de conduire' }
 	},
 	{
 		path: '/le-retrait-ou-la-suspension-du-permis-de-conduire',
 		name: 'le-retrait-ou-la-suspension-du-permis-de-conduire',
-		component: () => import('../views/le-retrait-ou-la-suspension-du-permis-de-conduire.vue')
+		component: () => import('../views/le-retrait-ou-la-suspension-du-permis-de-conduire.vue'),
+		meta: { title: 'Recup Mes Points - Le retrait ou la suspension du permis de conduire' }
 	},
 	{
 		path: '/lannulation-du-permis-de-conduire',
 		name: 'lannulation-du-permis-de-conduire',
-		component: () => import('../views/lannulation-du-permis-de-conduire.vue')
+		component: () => import('../views/lannulation-du-permis-de-conduire.vue'),
+		meta: { title: 'Recup Mes Points - L’annulation du permis de conduire' }
 	},
 	{
 		path: '/permis-invalide-ou-zero-point',
 		name: 'permis-invalide-ou-zero-point',
-		component: () => import('../views/permis-invalide-ou-zero-point.vue')
+		component: () => import('../views/permis-invalide-ou-zero-point.vue'),
+		meta: { title: 'Recup Mes Points - Permis invalidé ou zéro point' }
 	},
 	{
 		path: '/la-conduite-sans-permis',
 		name: 'la-conduite-sans-permis',
-		component: () => import('../views/la-conduite-sans-permis.vue')
+		component: () => import('../views/la-conduite-sans-permis.vue'),
+		meta: { title: 'Recup Mes Points - La conduite sans permis' }
 	},
 	{
 		path: '/la-contestation-dune-infraction',
 		name: 'la-contestation-dune-infraction',
-		component: () => import('../views/la-contestation-dune-infraction.vue')
+		component: () => import('../views/la-contestation-dune-infraction.vue'),
+		meta: { title: 'Recup Mes Points - La contestation d’une infraction' }
 	},
 	{
 		path: '/antai-un-outil-pour-vous-permettre-de-payer-contester-et-consulter-votre-infraction',
 		name: 'antai-un-outil-pour-vous-permettre-de-payer-contester-et-consulter-votre-infraction',
 		component: () =>
-			import('../views/antai-un-outil-pour-vous-permettre-de-payer-contester-et-consulter-votre-infraction.vue')
+			import('../views/antai-un-outil-pour-vous-permettre-de-payer-contester-et-consulter-votre-infraction.vue'),
+			meta: { title: 'Recup Mes Points - ANTAI : un outil pour vous permettre de payer, contester et consulter votre infraction' }
 	},
 	{
 		path: '/fonctionnement-du-permis-a-points-et-solde-de-points',
 		name: 'fonctionnement-du-permis-a-points-et-solde-de-points',
-		component: () => import('../views/fonctionnement-du-permis-a-points-et-solde-de-points.vue')
+		component: () => import('../views/fonctionnement-du-permis-a-points-et-solde-de-points.vue'),
+		meta: { title: 'Recup Mes Points - Fonctionnement du permis à points et solde de points' }
 	},
 	{
 		path: '/le-permis-probatoire',
 		name: 'le-permis-probatoire',
-		component: () => import('../views/le-permis-probatoire.vue')
+		component: () => import('../views/le-permis-probatoire.vue'),
+		meta: { title: 'Recup Mes Points - Le permis probatoire' }
 	},
 	{
 		path: '/le-code-de-la-route',
 		name: 'le-code-de-la-route',
-		component: () => import('../views/le-code-de-la-route.vue')
+		component: () => import('../views/le-code-de-la-route.vue'),
+		meta: { title: 'Recup Mes Points - Le code de la route' }
 	},
 	{
 		path: '/que-faire-en-cas-de-perte-ou-de-vol-de-votre-permis-de-conduire',
 		name: 'que-faire-en-cas-de-perte-ou-de-vol-de-votre-permis-de-conduire',
-		component: () => import('../views/que-faire-en-cas-de-perte-ou-de-vol-de-votre-permis-de-conduire.vue')
+		component: () => import('../views/que-faire-en-cas-de-perte-ou-de-vol-de-votre-permis-de-conduire.vue'),
+		meta: { title: 'Recup Mes Points - Que faire en cas de perte ou de vol de votre permis de conduire' }
 	},
 	{
 		path: '/la-lettre-48si-invalidation-du-permis-de-conduire',
 		name: 'la-lettre-48si-invalidation-du-permis-de-conduire',
-		component: () => import('../views/la-lettre-48si-invalidation-du-permis-de-conduire.vue')
+		component: () => import('../views/la-lettre-48si-invalidation-du-permis-de-conduire.vue'),
+		meta: { title: 'Recup Mes Points - La lettre 48 SI : invalidation du permis de conduire' }
 	},
 	{
 		path: '/la-lettre-48-n-stage-obligatoire',
 		name: 'la-lettre-48-n-stage-obligatoire',
-		component: () => import('../views/la-lettre-48-n-stage-obligatoire.vue')
+		component: () => import('../views/la-lettre-48-n-stage-obligatoire.vue'),
+		meta: { title: 'Recup Mes Points - La lettre 48 N : stage obligatoire' }
 	},
 	{
 		path: '/prendre-connaissance-de-son-solde-de-points',
 		name: 'prendre-connaissance-de-son-solde-de-points',
-		component: () => import('../views/prendre-connaissance-de-son-solde-de-points.vue')
+		component: () => import('../views/prendre-connaissance-de-son-solde-de-points.vue'),
+		meta: { title: 'Recup Mes Points - Prendre connaissance de son solde de points' }
 	},
 	{
 		path: '/releve-integral-dinformation',
 		name: 'releve-integral-dinformation',
-		component: () => import('../views/releve-integral-dinformation.vue')
+		component: () => import('../views/releve-integral-dinformation.vue'),
+		meta: { title: 'Recup Mes Points - Relevé intégral d’information' }
 	}
 ];
 

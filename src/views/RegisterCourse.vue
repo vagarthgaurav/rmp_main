@@ -839,7 +839,7 @@
 <script>
 import VueCookies from "vue-cookies";
 import { mask } from "vue-the-mask";
-//import Footer from "@/components/Footer";
+//
 
 var stripe = Stripe("pk_test_xwPPg4R1nsYgYE1gfdCkNDv000C9CmM8qd"),
   elements = stripe.elements();
@@ -869,7 +869,7 @@ export default {
     mask
   },
   components: {
-    //Footer
+    //
   },
   data() {
     return {

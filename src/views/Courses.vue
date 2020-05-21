@@ -135,17 +135,17 @@
         </v-flex>
       </v-layout>
     </div>
-    <Footer style="margin-top: 200px" />
+     style="margin-top: 200px" />
   </div>
 </template>
 
 <script>
-import Footer from "@/components/Footer";
+
 
 export default {
   name: "Courses",
   components: {
-    Footer
+    
   },
   data() {
     return {

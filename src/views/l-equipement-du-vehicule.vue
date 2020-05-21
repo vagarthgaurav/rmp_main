@@ -133,7 +133,7 @@
                                 </p>
 
                             </div>
-                            <di
+                            
                             <div>
                                 <h1>L’équipement du véhicule</h1>
                                 <p>La grande majorité des informations indispensables au conducteur sont d’ordre visuel.
@@ -297,19 +297,19 @@
             </v-layout>
         </v-container>
 
-        <Footer/>
+        
     </div>
 </template>
 
 <script>
     import RightAsideInfractions from '@/components/RightAsideInfractions'
-    import Footer from '@/components/Footer'
+    
 
     export default {
         name: "stage-recuperation-points",
         components: {
             RightAsideInfractions,
-            Footer
+            
         }
     }
 </script>

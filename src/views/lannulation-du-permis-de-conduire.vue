@@ -175,19 +175,19 @@
             </v-layout>
         </v-container>
 
-        <Footer />
+         />
     </div>
 </template>
 
 <script>
     import RightAsideInfractions from '@/components/RightAsideInfractions'
-    import Footer from '@/components/Footer'
+    
 
     export default {
         name: "stage-recuperation-points",
         components: {
             RightAsideInfractions,
-            Footer
+            
         }
     }
 </script>

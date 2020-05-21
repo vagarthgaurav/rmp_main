@@ -192,20 +192,20 @@
       </v-layout>
     </v-container>
 
-    <Footer />
+     />
   </div>
 </template>
 
 <script>
 import { Carousel, Slide } from "vue-carousel";
-import Footer from "@/components/Footer";
+
 
 export default {
   name: "home",
   components: {
     Carousel,
     Slide,
-    Footer
+    
   },
   data() {
     return {

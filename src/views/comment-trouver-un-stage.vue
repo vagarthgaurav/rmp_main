@@ -1,9 +1,9 @@
 <template>
-    <div class="mt-2">
+    <div class="mt-2" >
 
         <v-container>
             <v-layout row wrap class="justify-space-around">
-                <v-flex xs12 sm12 md9>
+                <v-flex xs12 sm12 md9 >
                     <v-card class="mx-2">
                         <v-card-text>
 
@@ -57,24 +57,38 @@
             </v-layout>
         </v-container>
 
-        <Footer/>
+        
     </div>
 </template>
 
 <script>
     import RightAsideInfractions from '@/components/RightAsideInfractions'
-    import Footer from '@/components/Footer'
+    
 
     export default {
         name: "stage-recuperation-points",
         components: {
             RightAsideInfractions,
-            Footer
+            
         }
     }
 </script>
 
 <style>
+
+    h1{
+        margin-bottom: 20px;
+    }
+
+    h2{
+        margin-bottom: 10px
+    }
+
+    h3{
+        margin-bottom: 5px;
+    }
+
+
     .highlighted {
         background: #ffedf5;
         border-radius: 10px;

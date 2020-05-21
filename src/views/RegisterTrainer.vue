@@ -197,17 +197,17 @@
       </v-card>
     </v-container>
 
-    <Footer class="mt-12" />
+     class="mt-12" />
   </div>
 </template>
 
 <script>
-import Footer from "@/components/Footer";
+
 
 export default {
   name: "RegisterTrainer",
   components: {
-    Footer
+    
   },
   data() {
     return {
